@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/xwang345/web322-app#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
+    "count-files": "^2.6.2",
     "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
     "node-filelist": "^1.0.0"
   }
 }
