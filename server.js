@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var path = require("path");
 var fs = require('fs');
-var filepath = 'testFile.txt';
+var filepath = './testFile.txt';
 const testFolder = './';
 const chalk = require('chalk');
 var countFiles = require('count-files')
@@ -91,6 +91,28 @@ app.get("/delete", (req, res) => {
       console.log(chalk.red("==================="));
     })
   }, 50);
+});
+
+app.get("/deleteSync", (req, res) => {
+  fs.unlinkSync(filepath);
+  res.sendFile(path.join(__dirname + "/views/delete.html"));
+  
+   setTimeout(function() {
+    fs.readdir(testFolder, (err, files) => {
+      console.log(chalk.red("==================="));
+      console.log(chalk.red("Here the file list after delete textFile.txt:"));
+      files.forEach(file => {
+        console.log(chalk.blue(file));
+      });
+      console.log(chalk.red("==================="));
+    })
+  }, 50);
+  console.log(chalk.red("==================="))
+  var stats = countFiles(testFolder, function (err, results) {
+    console.log(chalk.yellow('done counting'));
+    console.log(results);// { files: 10, dirs: 2, bytes: 234 }
+    console.log(chalk.red("==========================================="))
+  });
 });
 
 fs.readdir(testFolder, (err, files) => {
