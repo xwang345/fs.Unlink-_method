@@ -3,6 +3,8 @@ var app = express();
 var path = require("path");
 var fs = require('fs');
 var filepath = 'testFile.txt';
+const testFolder = './';
+
 
 var HTTP_PORT = process.env.PORT || 8080;
 
@@ -21,23 +23,29 @@ app.get("/", (req,res) => {
    fs.writeFile(filepath, test, (err) => {
     if (err) throw err;
     // success case, the file was saved
-    console.log('test' + filepath + 'create successfully!!');
+    console.log( filepath + ' create successfully!!');
   });
 });
+
+fs.readdir(testFolder, (err, files) => {
+  files.forEach(file => {
+    console.log(file);
+  });
+})
 
 app.get("/delete", (req, res) => {
   res.sendFile(path.join(__dirname + "/views/delete.html"));
    fs.unlink(filepath, (err)=> {
     if (err) throw err;
     // success case, the file was delete
-    console.log('File '+filepath+' delete successfully!');
+    console.log(filepath+' delete successfully!');
    })
 });
 
 fs.writeFile(filepath, test, (err) => {
   if (err) throw err;
   // success case, the file was saved
-  console.log('test' + filepath + 'create successfully!!');
+  console.log(filepath + ' create successfully!!');
 });
 
 

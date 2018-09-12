@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/xwang345/web322-app#readme",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "node-filelist": "^1.0.0"
   }
 }
