@@ -6,6 +6,7 @@ var filepath = './testFile.txt';
 const testFolder = './';
 const chalk = require('chalk');
 var countFiles = require('count-files')
+var fsPromises = require('fs').promises;
 // const exphbs = require('express-handlebars');
 // const bodyParser = require('body-parser');
 
@@ -49,13 +50,13 @@ app.get("/", (req,res) => {
     console.log( filepath + ' create successfully!!');
   });
   console.log(chalk.red("==================="))
-  var stats = countFiles(testFolder, function (err, results) {
+    var stats = countFiles(testFolder, function (err, results) {
     console.log(chalk.yellow('done counting'));
     console.log(results);// { files: 10, dirs: 2, bytes: 234 }
     console.log(chalk.red("==========================================="))
 
   });
-  setTimeout(function() {
+  // setTimeout(function() {
     fs.readdir(testFolder, (err, files) => {
       console.log(chalk.red("==================="))
       console.log(chalk.red("Here the file list"));
@@ -64,7 +65,7 @@ app.get("/", (req,res) => {
       });
       console.log(chalk.red("==================="))
     })
-  }, 50);
+  // }, 500);
 
 });
 
@@ -75,13 +76,13 @@ app.get("/delete", (req, res) => {
     // success case, the file was delete
     console.log(filepath+' delete successfully!');
    })
-   console.log(chalk.red("==================="))
-  var stats = countFiles(testFolder, function (err, results) {
+    console.log(chalk.red("==================="))
+    var stats = countFiles(testFolder, function (err, results) {
     console.log(chalk.yellow('done counting'));
     console.log(results);// { files: 10, dirs: 2, bytes: 234 }
     console.log(chalk.red("==========================================="))
   });
-   setTimeout(function() {
+  //  setTimeout(function() {
     fs.readdir(testFolder, (err, files) => {
       console.log(chalk.red("==================="));
       console.log(chalk.red("Here the file list after delete textFile.txt:"));
@@ -90,14 +91,13 @@ app.get("/delete", (req, res) => {
       });
       console.log(chalk.red("==================="));
     })
-  }, 50);
+  // }, 500);
 });
 
 app.get("/deleteSync", (req, res) => {
   fs.unlinkSync(filepath);
   res.sendFile(path.join(__dirname + "/views/delete.html"));
-  
-   setTimeout(function() {
+  //  setTimeout(function() {
     fs.readdir(testFolder, (err, files) => {
       console.log(chalk.red("==================="));
       console.log(chalk.red("Here the file list after delete textFile.txt:"));
@@ -106,7 +106,28 @@ app.get("/deleteSync", (req, res) => {
       });
       console.log(chalk.red("==================="));
     })
-  }, 50);
+  // }, 50);
+  console.log(chalk.red("==================="))
+  var stats = countFiles(testFolder, function (err, results) {
+    console.log(chalk.yellow('done counting'));
+    console.log(results);// { files: 10, dirs: 2, bytes: 234 }
+    console.log(chalk.red("==========================================="))
+  });
+});
+
+app.get("/PromisesdeleteSync", (req, res) => {
+  fsPromises.unlink(filepath);
+  res.sendFile(path.join(__dirname + "/views/delete.html"));
+  //  setTimeout(function() {
+    fs.readdir(testFolder, (err, files) => {
+      console.log(chalk.red("==================="));
+      console.log(chalk.red("Here the file list after delete textFile.txt:"));
+      files.forEach(file => {
+        console.log(chalk.blue(file));
+      });
+      console.log(chalk.red("==================="));
+    })
+  // }, 500);
   console.log(chalk.red("==================="))
   var stats = countFiles(testFolder, function (err, results) {
     console.log(chalk.yellow('done counting'));
