@@ -127,14 +127,13 @@ app.get("/PromisesdeleteSync", (req, res) => {
   res.sendFile(path.join(__dirname + "/views/delete.html"));
   // fsPromises.unlink(filepath).then(()=>{console.log("dafdsafdsa")});
 
-  async function doTruncate() {
-    const fd = await fsPromises.open("testFile.txt", "r+");
-    await fsPromises.ftruncate(fd, 4);
-    console.log(fs.readFileSync("testFile.txt", "utf8"));
-    // Prints: Node
-  }
-
-
+  return new Promise((resolve, reject) => {
+    fs.unlink(filepath, (err)=> {
+      if (err) throw err;
+      // success case, the file was delete
+      console.log(filepath+' delete successfully!');
+     })
+  });
 
   //  setTimeout(function() {
     fs.readdir(testFolder, (err, files) => {
