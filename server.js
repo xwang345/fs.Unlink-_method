@@ -6,12 +6,20 @@ var filepath = './testFile.txt';
 const testFolder = './';
 const chalk = require('chalk');
 var countFiles = require('count-files')
-var fsPromises = require('fs').promises;
+const fsPromises = fs.Promise;
 // const exphbs = require('express-handlebars');
 // const bodyParser = require('body-parser');
 
+const writeFilePromise = (file, data) => {
+  return new Promise((resolve, reject) => {
+      fs.writeFile(file, data, error => {
+          if (error) reject(error);
+          resolve("file created successfully with handcrafted Promise!");
+      });
+  });
+};
 
-var HTTP_PORT = process.env.PORT || 3000;
+var HTTP_PORT = process.env.PORT || 8080;
 
 let test = "Test file Test file Test file Test file Test file Test file Test file Test file Test file Test file Test file Test file";
 
@@ -116,8 +124,18 @@ app.get("/deleteSync", (req, res) => {
 });
 
 app.get("/PromisesdeleteSync", (req, res) => {
-  fsPromises.unlink(filepath);
   res.sendFile(path.join(__dirname + "/views/delete.html"));
+  // fsPromises.unlink(filepath).then(()=>{console.log("dafdsafdsa")});
+
+  async function doTruncate() {
+    const fd = await fsPromises.open("testFile.txt", "r+");
+    await fsPromises.ftruncate(fd, 4);
+    console.log(fs.readFileSync("testFile.txt", "utf8"));
+    // Prints: Node
+  }
+
+
+
   //  setTimeout(function() {
     fs.readdir(testFolder, (err, files) => {
       console.log(chalk.red("==================="));
