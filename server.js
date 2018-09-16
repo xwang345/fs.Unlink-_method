@@ -5,8 +5,11 @@ var fs = require('fs');
 var filepath = './testFile.txt';
 const testFolder = './';
 const chalk = require('chalk');
-var countFiles = require('count-files')
+var countFiles = require('count-files');
+//Loading and Filer module
+const Filer = require('filer');
 const fsPromises = fs.Promise;
+var indexedDB = require('./IndexedDB');
 // const exphbs = require('express-handlebars');
 // const bodyParser = require('body-parser');
 
@@ -53,7 +56,10 @@ app.get("/", (req,res) => {
     var stats = countFiles(testFolder, function (err, results) {
     console.log(chalk.yellow('done counting'));
     console.log(results);// { files: 10, dirs: 2, bytes: 234 }
-    console.log(chalk.red("==========================================="))
+    console.log(chalk.red("==========================================="));
+
+    
+    
 
   });
   // setTimeout(function() {
@@ -165,6 +171,11 @@ fs.writeFile(filepath, test, (err) => {
   // success case, the file was saved
   console.log(filepath + ' create successfully!!');
 });
+
+if (!('indexedDB' in window)) {
+  console.log('This browser doesn\'t support IndexedDB');
+  return;
+}
 
 
 // setup http server to listen on HTTP_PORT
