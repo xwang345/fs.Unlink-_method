@@ -10,16 +10,6 @@ const fsPromises = fs.Promise;
 // const exphbs = require('express-handlebars');
 // const bodyParser = require('body-parser');
 
-const writeFilePromise = (file, data) => {
-  return new Promise((resolve, reject) => {
-      fs.writeFile(file, data, error => {
-          if (error) reject(error);
-          resolve("file created successfully with handcrafted Promise!");
-      });
-  });
-};
-
-writeFilePromise;
 
 var HTTP_PORT = process.env.PORT || 8080;
 
@@ -170,11 +160,11 @@ fs.readdir(testFolder, (err, files) => {
 })
 
 
-// fs.writeFile(filepath, test, (err) => {
-//   if (err) throw err;
-//   // success case, the file was saved
-//   console.log(filepath + ' create successfully!!');
-// });
+fs.writeFile(filepath, test, (err) => {
+  if (err) throw err;
+  // success case, the file was saved
+  console.log(filepath + ' create successfully!!');
+});
 
 
 // setup http server to listen on HTTP_PORT
