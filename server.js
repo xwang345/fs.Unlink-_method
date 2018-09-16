@@ -19,6 +19,8 @@ const writeFilePromise = (file, data) => {
   });
 };
 
+writeFilePromise;
+
 var HTTP_PORT = process.env.PORT || 8080;
 
 let test = "Test file Test file Test file Test file Test file Test file Test file Test file Test file Test file Test file Test file";
@@ -167,11 +169,12 @@ fs.readdir(testFolder, (err, files) => {
   });
 })
 
-fs.writeFile(filepath, test, (err) => {
-  if (err) throw err;
-  // success case, the file was saved
-  console.log(filepath + ' create successfully!!');
-});
+
+// fs.writeFile(filepath, test, (err) => {
+//   if (err) throw err;
+//   // success case, the file was saved
+//   console.log(filepath + ' create successfully!!');
+// });
 
 
 // setup http server to listen on HTTP_PORT
